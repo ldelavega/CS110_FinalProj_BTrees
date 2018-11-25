@@ -5,26 +5,28 @@ import java.util.Scanner;
 
 public class BTreeDB
 {
-	public static final String EXIT = "exit";
-	public static final String INSERT = "insert";
-	public static final String SELECT = "select";
-	public static final String UPDATE = "update";
-	public static final String ERROR = "ERROR: invalid command";
+	private static final String EXIT = "exit";
+	private static final String INSERT = "insert";
+	private static final String SELECT = "select";
+	private static final String UPDATE = "update";
+	private static final String ERROR = "ERROR: invalid command";
+
+    private static ValuesManager valManager;
 
     public static void main(String[] args) throws IOException, FileNotFoundException
     {
     	RandomAccessFile dataBT = new RandomAccessFile(args[0], "rwd");
-		RandomAccessFile dataVAL = new RandomAccessFile(args[1], "rwd");
+		valManager = new ValuesManager(args[1]);
             
         Scanner sc = new Scanner(System.in);
         
         while(sc.hasNext())
         {
-        	BTreeMe(sc.nextLine().split(" "), dataBT, dataVAL);
+        	BTreeMe(sc.nextLine().split(" "), dataBT);
         }
     }
 
-    public static void BTreeMe(String[] input, RandomAccessFile dataBT,  RandomAccessFile dataVAL)
+    public static void BTreeMe(String[] input, RandomAccessFile dataBT)
     {
     	try
     	{
@@ -33,12 +35,12 @@ public class BTreeDB
     		if (action.equals(EXIT))
     		{
     			dataBT.close();
-    			dataVAL.close();
+    			valManager.close();
     			System.exit(0);
     		}
 
     		long key = Long.valueOf(input[1]);
-    		String value = input.length > 2 ? input[2] : "";
+    		String value = input.length > 2 ? input[2].trim() : "";
 
     		switch (action)
             {
@@ -63,9 +65,10 @@ public class BTreeDB
     	}
     }
     
-    public static void insert(long key, String value)
+    public static void insert(long key, String value) throws IOException
     {
-        System.out.printf("--> in method insert( long key, String value ), with key = %d and value = %s\n", key, value);
+        long index = valManager.insert(value);
+        System.out.printf(" --> in method insert( long key, String value ), value %s inserted at index %d\n", value, index);
     }
 
     public static void select(long key)
