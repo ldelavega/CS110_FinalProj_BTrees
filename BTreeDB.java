@@ -51,7 +51,8 @@ public class BTreeDB
 	            case SELECT:
 	            	if(!value.equals(EMPTY))
 	            		throw new Exception();
-                    select(key);
+                    else
+                        select(key);
             	    break;
             	case UPDATE:
        	            update(key, value);
