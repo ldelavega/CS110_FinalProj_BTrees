@@ -33,6 +33,11 @@ public class BTreeManager
 		}
 	}
 
+	public void insert(long key) throws IOException
+	{
+		
+	}
+
 	public void close() throws IOException
 	{
 		data.seek(0);
