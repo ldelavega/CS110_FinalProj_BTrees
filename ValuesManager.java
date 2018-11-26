@@ -2,8 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class ValuesManager
-{
+public class ValuesManager {
 	private static final int LONG_SIZE = 8;
   	private static final int OFFSET_NUM_RECORDS = 0;
   	private static final int OFFSET_START_OF_RECORDS = 8;
@@ -13,8 +12,7 @@ public class ValuesManager
 	private RandomAccessFile data;
 	private long numRecords;
 
-	public ValuesManager(String fileName) throws IOException
-	{
+	public ValuesManager(String fileName) throws IOException {
 		File tempFile = new File(fileName);
 		boolean exist = tempFile.exists();
 
@@ -29,8 +27,7 @@ public class ValuesManager
 			numRecords = 0L;
 	}
 
-	public long insert(String value) throws IOException
-	{
+	public long insert(String value) throws IOException {
 		int i = (byte)value.length();
 		data.seek(numRecords * 256L + 8L);
 		data.writeByte(i);
@@ -43,8 +40,7 @@ public class ValuesManager
     	return numRecords - 1L;
 	}
 
-	public void close() throws IOException
-  	{
+	public void close() throws IOException {
   		data.seek(0L);
 	  	data.writeLong(numRecords);
     	data.close();
