@@ -70,14 +70,13 @@ public class BTreeDB
     {
 	// If <key> already exists, print “ERROR: [key] already exists."
 	Scanner keyScan =new Scanner("data.bt");
-	while (keyScan.hasNextLine())
-            {
+	while (keyScan.hasNextLine()) {
                 final String valCopy = keyScan.nextLine();
-                if(valCopy.contains(key))
-                {
+                if(valCopy.contains(key)) {
                     System.out.println("ERROR: " + key " already exists.");
                     break;
                 }
+	}
 	    
         // Inserts a key associated to value, and then prints [key] inserted.
         long index = dataVAL.insert(value);
