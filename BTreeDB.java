@@ -2,8 +2,8 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class BTreeDB
-{
+public class BTreeDB {
+	// Strings to be used as comparisons to the input from the user
 	private static final String EXIT = "exit";
 	private static final String INSERT = "insert";
 	private static final String SELECT = "select";
@@ -14,27 +14,23 @@ public class BTreeDB
     private static BTreeManager dataBT;
     private static ValuesManager dataVAL;
 
-    public static void main(String[] args) throws IOException, FileNotFoundException
-    {
+    public static void main(String[] args) throws IOException, FileNotFoundException {
     	dataBT = new BTreeManager(args[0]);
 		dataVAL = new ValuesManager(args[1]);
             
         Scanner sc = new Scanner(System.in);
         
-        while(sc.hasNext())
-        {
+        while(sc.hasNext()) {
         	BTreeMe(sc.nextLine().split(" "));
         }
     }
 
-    public static void BTreeMe(String[] input)
-    {
-    	try
-    	{
+    public static void BTreeMe(String[] input) {
+    	try {
     		String action = input[0];
 
-    		if (action.equals(EXIT))
-    		{
+			// Terminate the program on command
+    		if (action.equals(EXIT)) {
     			dataBT.close();
     			dataVAL.close();
     			System.exit(0);
@@ -43,8 +39,8 @@ public class BTreeDB
     		long key = Long.valueOf(input[1]);
     		String value = input.length > 2 ? input[2] : EMPTY;
 
-    		switch (action)
-            {
+			// Commands from the user
+    		switch (action) {
             	case INSERT:
         	        insert(key, value);
  	                break;
@@ -59,15 +55,12 @@ public class BTreeDB
 	            default:
                 	throw new Exception();
             }
-    	}
-    	catch(Exception e)
-    	{
+    	} catch(Exception e) {
     		System.out.println(ERROR);
     	}
     }
     
-    public static void insert(long key, String value) throws IOException
-    {
+    public static void insert(long key, String value) throws IOException {
 	// If <key> already exists, print “ERROR: [key] already exists."
 	Scanner keyScan =new Scanner("data.bt");
 	while (keyScan.hasNextLine()) {
@@ -85,13 +78,11 @@ public class BTreeDB
 	// If [value] is omitted, insert an empty string
     }
 
-    public static void select(long key)
-    {
+    public static void select(long key) {
         System.out.printf(" --> in method select( long key, String value ), with key = %d\n", key);
     }
 
-    public static void update(long key, String value)
-    {
+    public static void update(long key, String value) {
         System.out.printf(" --> in method update( long key, String value ), with key = %d and value = %s\n", key, value);
     }
 }
