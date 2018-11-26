@@ -41,7 +41,7 @@ public class BTreeDB
     		}
 
     		long key = Long.valueOf(input[1]);
-    		String value = input.length > 2 ? input[2].trim() : EMPTY;
+    		String value = input.length > 2 ? input[2] : EMPTY;
 
     		switch (action)
             {
