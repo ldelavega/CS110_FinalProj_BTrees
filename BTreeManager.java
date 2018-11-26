@@ -27,6 +27,25 @@ public class BTreeManager
 			index = 0L;
 		}
 	}
+	
+    public static void insert(long key, String value) throws IOException
+    {
+	// If <key> already exists, print “ERROR: [key] already exists."
+	Scanner keyScan =new Scanner("data.bt");
+	while (keyScan.hasNextLine()) {
+                final String valCopy = keyScan.nextLine();
+                if(valCopy.contains(key)) {
+                    System.out.println("ERROR: " + key + " already exists.");
+                    break;
+                }
+	}
+	    
+        // Inserts a key associated to value, and then prints [key] inserted.
+        long index = dataVAL.insert(value);
+        System.out.printf(" --> in method insert( long key, String value ), value %s inserted at index %d\n", value, index);
+		    
+	// If [value] is omitted, insert an empty string
+    }
 
 	public void close() throws IOException
 	{
