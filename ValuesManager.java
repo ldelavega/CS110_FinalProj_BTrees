@@ -22,30 +22,30 @@ public class ValuesManager
 
 		if (exist)
 		{
-			data.seek(0L);
+			data.seek(0);
 			numRecords = data.readLong();
 		}
 		else
-			numRecords = 0L;
+			numRecords = 0;
 	}
 
 	public long insert(String value) throws IOException
 	{
 		int i = (byte)value.length();
-		data.seek(numRecords * 256L + 8L);
+		data.seek(numRecords * 256 + 8);
 		data.writeByte(i);
 		data.writeBytes(value);
 
-		numRecords += 1L;
-    	data.seek(0L);
+		numRecords += 1;
+    	data.seek(0);
     	data.writeLong(numRecords);
 
-    	return numRecords - 1L;
+    	return numRecords - 1;
 	}
 
 	public void close() throws IOException
   	{
-  		data.seek(0L);
+  		data.seek(0);
 	  	data.writeLong(numRecords);
     	data.close();
 	}
