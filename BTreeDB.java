@@ -68,8 +68,13 @@ public class BTreeDB
     
     public static void insert(long key, String value) throws IOException
     {
+        // Inserts a key associated to value, and then prints [key] inserted.
         long index = dataVAL.insert(value);
         System.out.printf(" --> in method insert( long key, String value ), value %s inserted at index %d\n", value, index);
+	    
+	// If <key> already exists, print “ERROR: [key] already exists.
+	    
+	// If [value] is omitted, insert an empty string
     }
 
     public static void select(long key)
