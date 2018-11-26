@@ -73,7 +73,7 @@ public class BTreeDB
 	while (keyScan.hasNextLine()) {
                 final String valCopy = keyScan.nextLine();
                 if(valCopy.contains(key)) {
-                    System.out.println("ERROR: " + key " already exists.");
+                    System.out.println("ERROR: " + key + " already exists.");
                     break;
                 }
 	}
