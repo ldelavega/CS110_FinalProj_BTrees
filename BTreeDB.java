@@ -6,9 +6,9 @@ public class BTreeDB
 {
 	private static final String EXIT = "exit";
 	private static final String INSERT = "insert";
-	private static final String SELECT = "select";
 	private static final String UPDATE = "update";
-    private static final String EMPTY = "";
+    private static final String SELECT = "select";
+    private static final String BLANK = "";
 	private static final String ERROR = "ERROR: invalid command";
 
     private static BTreeManager dataBT;
@@ -23,63 +23,62 @@ public class BTreeDB
         
         while(sc.hasNext())
         {
-        	BTreeMe(sc.nextLine().split(" "));
-        }
-    }
+        	String[] input = sc.nextLine().split(" ");
 
-    public static void BTreeMe(String[] input)
-    {
-    	try
-    	{
-    		String action = input[0];
-
-    		if (action.equals(EXIT))
-    		{
-    			dataBT.close();
-    			dataVAL.close();
-    			System.exit(0);
-    		}
-
-    		long key = Long.valueOf(input[1]);
-    		String value = input.length > 2 ? input[2] : EMPTY;
-
-    		switch (action)
+            try
             {
-            	case INSERT:
-        	        insert(key, value);
- 	                break;
-	            case SELECT:
-	            	if(!value.equals(EMPTY))
-	            		throw new Exception();
-                    else
-                        select(key);
-            	    break;
-            	case UPDATE:
-       	            update(key, value);
+                String action = input[0];
+
+                if (action.equals(EXIT))
+                {
+                    dataBT.close();
+                    dataVAL.close();
                     break;
-	            default:
-                	throw new Exception();
+                }
+
+                long key = Long.valueOf(input[1]);
+                String value = input.length > 2 ? input[2] : BLANK;
+
+                switch (action)
+                {
+                    case INSERT:
+                        insert(key, value);
+                        break;
+                    case UPDATE:
+                        update(key, value);
+                        break;
+                    case SELECT:
+                        if(!value.equals(BLANK))
+                            throw new Exception();
+                        else
+                            select(key);
+                        break;
+                    default:
+                        throw new Exception();
+                }
             }
-    	}
-    	catch(Exception e)
-    	{
-    		System.out.println(ERROR);
-    	}
+            catch(Exception e)
+            {
+                System.out.println(ERROR);
+            }
+        }
     }
     
     public static void insert(long key, String value) throws IOException
     {
         long index = dataVAL.insert(value);
+        dataBT.insert(key, index);
+        System.out.printf("%d inserted.\n", key);
         System.out.printf(" --> in method insert( long key, String value ), value %s inserted at index %d\n", value, index);
-    }
-
-    public static void select(long key)
-    {
-        System.out.printf(" --> in method select( long key, String value ), with key = %d\n", key);
     }
 
     public static void update(long key, String value)
     {
         System.out.printf(" --> in method update( long key, String value ), with key = %d and value = %s\n", key, value);
+    }
+
+    public static void select(long key)
+    {
+        System.out.printf(" --> in method select( long key, String value ), with key = %d\n", key);
     }
 }

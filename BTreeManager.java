@@ -33,7 +33,7 @@ public class BTreeManager
 		}
 	}
 
-	public void insert(long key) throws IOException
+	public void insert(long key, long index) throws IOException
 	{
 		
 	}
