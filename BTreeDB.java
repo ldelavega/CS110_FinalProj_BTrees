@@ -201,8 +201,9 @@ public class BTreeDB {
 	// If [value] is omitted, insert an empty string
     }*/
 
-    public static void select(long key) {
-        System.out.printf(" --> in method select( long key, String value ), with key = %d\n", key);
+    public static void select(long key)
+    {
+	    dataBT.select(key);
     }
 
     public static void update(long key, String value) {
