@@ -158,7 +158,9 @@ public class BTreeDB {
      */
     public static void select(long key)
     {
-        System.out.printf(" --> in method select( long key, String value ), with key = %d\n", key);
+	    dataBT.select(key);
+    }
+        //System.out.printf(" --> in method select( long key, String value ), with key = %d\n", key);
 =======
 			// Commands from the user
     		switch (action) {
