@@ -8,7 +8,7 @@ public class BTreeDB
 	private static final String INSERT = "insert";
 	private static final String UPDATE = "update";
     private static final String SELECT = "select";
-    private static final String BLANK = "";
+    private static final String EMPTY = "";
 	private static final String ERROR = "ERROR: invalid command";
 
     private static BTreeManager dataBT;
@@ -37,7 +37,7 @@ public class BTreeDB
                 }
 
                 long key = Long.valueOf(input[1]);
-                String value = input.length > 2 ? input[2] : BLANK;
+                String value = input.length > 2 ? input[2] : EMPTY;
 
                 switch (action)
                 {
@@ -48,10 +48,9 @@ public class BTreeDB
                         update(key, value);
                         break;
                     case SELECT:
-                        if(!value.equals(BLANK))
+                        if(!value.equals(EMPTY))
                             throw new Exception();
-                        else
-                            select(key);
+                        select(key);
                         break;
                     default:
                         throw new Exception();
@@ -68,7 +67,7 @@ public class BTreeDB
     {
         long index = dataVAL.insert(value);
         dataBT.insert(key, index);
-        System.out.printf("%d inserted.\n", key);
+
         System.out.printf(" --> in method insert( long key, String value ), value %s inserted at index %d\n", value, index);
     }
 

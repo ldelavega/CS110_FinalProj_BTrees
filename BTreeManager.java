@@ -30,12 +30,69 @@ public class BTreeManager
 		{
 			numRecords = 0;
 			index = 0;
+
+			data.writeLong(numRecords);
+			data.writeLong(index);
+			int size = BTreeNode.LENGTH;
+
+			for(int i = 0; i < size; i++)
+			{
+				data.writeLong(-1);
+			}
+		}
+	}
+
+	private BTreeNode nodeMe(long key) throws IOException
+	{
+		data.seek(8);
+		long x = data.readLong();
+
+		int size = BTreeNode.LENGTH;
+		long[] node = new long[size];
+
+		for(int i = 0; i < size; i++)
+		{
+			node[i] = data.readLong();
+		}
+
+		return new BTreeNode(node);
+	}
+
+	private void writeNode(BTreeNode bTree, long x) throws IOException
+	{
+		long[] node = bTree.getNode();
+		long seeker = 16 + x * 14 * 8;
+		data.seek(seeker);
+
+		for(int i = 0; i < 14; i++)
+		{
+			data.writeLong(node[i]);
 		}
 	}
 
 	public void insert(long key, long index) throws IOException
 	{
-		
+		BTreeNode bTree = nodeMe(key);
+
+		bTree.insert(key, index);
+
+		writeNode(bTree, 0);
+
+		System.out.printf("%d inserted", key);
+	}
+
+	public boolean keyExist(long key) throws IOException
+	{
+		BTreeNode bTree = nodeMe(key);
+
+		return bTree.getIndex(key) != BTreeNode.EMPTY;
+	}
+
+	public long getIndex(long key) throws IOException
+	{
+		BTreeNode bTree = nodeMe(key);
+
+		return bTree.getIndex(key);
 	}
 
 	public void close() throws IOException

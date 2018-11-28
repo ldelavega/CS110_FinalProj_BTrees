@@ -31,7 +31,7 @@ public class ValuesManager
 
 	public long insert(String value) throws IOException
 	{
-		int i = (byte)value.length();
+		int i = (byte) value.length();
 		data.seek(numRecords * 256 + 8);
 		data.writeByte(i);
 		data.writeBytes(value);
