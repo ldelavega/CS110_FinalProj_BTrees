@@ -181,7 +181,7 @@ public class BTreeDB {
     	}
     }
     
-    public static void insert(long key, String value) throws IOException {
+    /**public static void insert(long key, String value) throws IOException {
 	// If <key> already exists, print “ERROR: [key] already exists."
 	Scanner keyScan =new Scanner("data.bt");
 	while (keyScan.hasNextLine()) {
@@ -197,7 +197,7 @@ public class BTreeDB {
         System.out.printf(" --> in method insert( long key, String value ), value %s inserted at index %d\n", value, index);
 		    
 	// If [value] is omitted, insert an empty string
-    }
+    }*/
 
     public static void select(long key) {
         System.out.printf(" --> in method select( long key, String value ), with key = %d\n", key);
