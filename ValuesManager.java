@@ -26,6 +26,18 @@ public class ValuesManager {
 		else
 			numRecords = 0;
 	}
+	
+	public String getValue(long key) throws IOException {
+    		if (key >= numRecords) {
+      			return null;
+    		} else {
+    			data.seek(key * 256L + 8L);
+    			int i = data.readByte();
+    			byte[] arrayOfByte = new byte[i];
+    			data.read(arrayOfByte);
+    			return new String(arrayOfByte, "UTF8");
+		}
+  }
 
 <<<<<<< HEAD
 	public long insert(String value) throws IOException
