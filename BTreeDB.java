@@ -50,7 +50,8 @@ public class BTreeDB
                     case SELECT:
                         if(!value.equals(EMPTY))
                             throw new Exception();
-                        select(key);
+                        else
+                            select(key);
                         break;
                     default:
                         throw new Exception();
@@ -67,8 +68,6 @@ public class BTreeDB
     {
         long index = dataVAL.insert(value);
         dataBT.insert(key, index);
-
-        System.out.printf(" --> in method insert( long key, String value ), value %s inserted at index %d\n", value, index);
     }
 
     public static void update(long key, String value)

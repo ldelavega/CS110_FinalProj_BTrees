@@ -78,15 +78,9 @@ public class BTreeManager
 
 		writeNode(bTree, 0);
 
-		System.out.printf("%d inserted", key);
+		System.out.printf("%d inserted\n", key);
 	}
 
-	public boolean keyExist(long key) throws IOException
-	{
-		BTreeNode bTree = nodeMe(key);
-
-		return bTree.getIndex(key) != BTreeNode.EMPTY;
-	}
 
 	public long getIndex(long key) throws IOException
 	{
