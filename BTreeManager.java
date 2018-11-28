@@ -2,8 +2,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+/**
+ * Class that handles the data.bt file (B-Tree).
+ * 
+ * @author Jaymie Antonio, Luis IV de la Vega, Christian Limsui
+ */
 public class BTreeManager
 {
+	// for creating the B-Tree file
 	private static final int LONG_SIZE = 8;
   	private static final int OFFSET_NUM_RECORDS = 0;
   	private static final int OFFSET_ROOT_INDEX = 8;
@@ -31,7 +37,7 @@ public class BTreeManager
 			numRecords = 0;
 			index = 0;
 
-			data.writeLong(numRecords);
+	`		data.writeLong(numRecords);
 			data.writeLong(index);
 			int size = BTreeNode.LENGTH;
 
@@ -80,7 +86,6 @@ public class BTreeManager
 
 		System.out.printf("%d inserted\n", key);
 	}
-
 
 	public long getIndex(long key) throws IOException
 	{
