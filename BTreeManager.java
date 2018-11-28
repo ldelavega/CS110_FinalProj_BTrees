@@ -86,6 +86,19 @@ public class BTreeManager
 
 		System.out.printf("%d inserted\n", key);
 	}
+	
+	public static void select(long key) throws IOException
+  	{
+    		long selectKey = Long.valueOf(dataBT.getIndex(key));
+	//might take out the L below
+    		if (selectKey.longValue() == -1L) {
+      			System.out.println("ERROR: " + selectKey + " does not exist.");
+    		} else {
+      			String keyVal = dataVAL.getValue(selectKey.longValue());
+      			System.out.println(selectKey + " => " + keyVal);
+    		}
+  	}
+
 
 	public long getIndex(long key) throws IOException
 	{
