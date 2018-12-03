@@ -9,12 +9,6 @@ import java.io.RandomAccessFile;
  */
 public class BTreeManager
 {
-	// for creating the B-Tree file
-	private static final int LONG_SIZE = 8;
-  	private static final int OFFSET_NUM_RECORDS = 0;
-  	private static final int OFFSET_ROOT_INDEX = 8;
-  	private static final int OFFSET_FIRST_NODE = 16;
-
 	private RandomAccessFile data;
 	private long numRecords;
 	private long index;
@@ -37,7 +31,7 @@ public class BTreeManager
 			numRecords = 0;
 			index = 0;
 
-	`		data.writeLong(numRecords);
+			data.writeLong(numRecords);
 			data.writeLong(index);
 			int size = BTreeNode.LENGTH;
 
@@ -80,25 +74,21 @@ public class BTreeManager
 	{
 		BTreeNode bTree = nodeMe(key);
 
-		bTree.insert(key, index);
+		// If <key> already exists, print “ERROR: [key] already exists."
+		if(bTree.getIndex(key) != bTree.EMPTY)
+		{
+			System.out.printf("ERROR: %d already exist.\n", key);
+		}
+		// Inserts a key associated to value, and then prints [key] inserted.
+		else
+		{
+			bTree.insert(key, index);
+			writeNode(bTree, 0);
 
-		writeNode(bTree, 0);
-
-		System.out.printf("%d inserted\n", key);
+			System.out.printf("%d inserted\n", key);
+		}
+		// If [value] is omitted, insert an empty string
 	}
-	
-	public static void select(long key) throws IOException
-  	{
-    		long selectKey = Long.valueOf(dataBT.getIndex(key));
-	//might take out the L below
-    		if (selectKey.longValue() == -1L) {
-      			System.out.println("ERROR: " + selectKey + " does not exist.");
-    		} else {
-      			String keyVal = dataVAL.getValue(selectKey.longValue());
-      			System.out.println(selectKey + " => " + keyVal);
-    		}
-  	}
-
 
 	public long getIndex(long key) throws IOException
 	{
@@ -106,25 +96,6 @@ public class BTreeManager
 
 		return bTree.getIndex(key);
 	}
-	
-    public static void insert(long key, String value) throws IOException
-    {
-	// If <key> already exists, print “ERROR: [key] already exists."
-	Scanner keyScan =new Scanner("data.bt");
-	while (keyScan.hasNextLine()) {
-                final String valCopy = keyScan.nextLine();
-                if(valCopy.contains(key)) {
-                    System.out.println("ERROR: " + key + " already exists.");
-                    break;
-                }
-	}
-	    
-        // Inserts a key associated to value, and then prints [key] inserted.
-        long index = dataVAL.insert(value);
-        System.out.printf(" --> in method insert( long key, String value ), value %s inserted at index %d\n", value, index);
-		    
-	// If [value] is omitted, insert an empty string
-    }
 
 	public void close() throws IOException
 	{
