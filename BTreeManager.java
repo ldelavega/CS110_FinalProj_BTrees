@@ -72,6 +72,7 @@ public class BTreeManager
 		}
 	}
 
+	// called in the insert method of BTree class
 	public void insert(long key, long index) throws IOException
 	{
 		BTreeNode bTree = nodeMe(key);
