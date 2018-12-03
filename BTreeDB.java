@@ -122,12 +122,6 @@ public class BTreeDB
         System.out.printf(" --> in method update( long key, String value ), with key = %d and value = %s\n", key, value);
     }
 
-    /**
-     * Select method.
-     * 
-     * @param key
-     * @throws IOException 
-     */
     public static void select(long key) throws IOException
     {
             long index = dataBT.getIndex(key);
