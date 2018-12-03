@@ -54,6 +54,8 @@ public class BTreeManager
 	 */
 	private BTreeNode nodeMe(long key) throws IOException
 	{
+		//is key still necessary here?
+
 		data.seek(8);
 		long x = data.readLong();
 
