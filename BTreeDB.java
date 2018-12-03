@@ -125,7 +125,7 @@ public class BTreeDB
     /**
      * Select method. Retrieves the index of the selected element, otherwise prints out an error message.
      * 
-     * @param key
+     * @param key key of the element being searched
      * @throws IOException 
     */
     public static void select(long key) throws IOException

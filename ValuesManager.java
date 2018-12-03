@@ -2,6 +2,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+/**
+ * Class that handles the data.val file (Key-value pairs)
+ * Handles the integer key-String value pairs, found in the data.val file
+ * 
+ * @author Jaymie Antonio, Luis IV de la Vega, Christian Limsui
+ */
 public class ValuesManager
 {
 	private RandomAccessFile data;
@@ -23,6 +29,13 @@ public class ValuesManager
 			numRecords = 0;
 	}
 	
+	/**
+	 * getValue method. Called in the select method of the BTreeDB class. Returns the respective String value of the given key
+	 * 
+	 * @param key
+	 * @return String associated with the key
+	 * @throws IOException
+	 */
 	public String getValue(long key) throws IOException
 	{
     	if (key >= numRecords)
