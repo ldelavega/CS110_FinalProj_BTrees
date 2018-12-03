@@ -9,8 +9,6 @@ import java.io.RandomAccessFile;
  */
 public class BTreeManager
 {
-	private static final String MODE = "rwd";
-
 	private RandomAccessFile data;
 	private long numRecords;
 	private long index;
@@ -20,7 +18,7 @@ public class BTreeManager
 		File tempFile = new File(fileName);
 		boolean exist = tempFile.exists();
 
-		data = new RandomAccessFile(fileName, MODE);
+		data = new RandomAccessFile(fileName, "rwd");
 
 		if(exist)
 		{
@@ -44,18 +42,8 @@ public class BTreeManager
 		}
 	}
 
-	/**
-	 * nodeMe method, called in the getIndex method of this class.
-	 * Creates a node to act as a medium between data.bt and this class
-	 * 
-	 * @param key
-	 * @return Representation of the selected BTree node
-	 * @throws IOException
-	 */
 	private BTreeNode nodeMe(long key) throws IOException
 	{
-		//is key still necessary here?
-
 		data.seek(8);
 		long x = data.readLong();
 
@@ -82,12 +70,11 @@ public class BTreeManager
 		}
 	}
 
-	// called in the insert method of BTree class
 	public void insert(long key, long index) throws IOException
 	{
 		BTreeNode bTree = nodeMe(key);
 
-		// If <key> already exists, print “ERROR: [key] already exists."
+		// If <key> already exists, print â€œERROR: [key] already exists."
 		if(bTree.getIndex(key) != bTree.EMPTY)
 		{
 			System.out.printf("ERROR: %d already exist.\n", key);
@@ -102,15 +89,25 @@ public class BTreeManager
 		}
 		// If [value] is omitted, insert an empty string
 	}
+        
+        public boolean update(long key) throws IOException
+	{
+		BTreeNode bTree = nodeMe(key);
+                boolean canSwap = false;
+                
 
-	/**
-	 * getIndex method, called in the select method of the BTreeDB class.
-	 * Returns the index of the key within the structure of the BTree
-	 * 
-	 * @param key
-	 * @return
-	 * @throws IOException
-	 */
+		if(bTree.getIndex(key) == bTree.EMPTY)
+		{
+			System.out.printf("ERROR: %d does not exist.\n", key);
+		}
+		else
+		{
+                        canSwap = true;
+		}
+		
+                return canSwap;
+	}
+
 	public long getIndex(long key) throws IOException
 	{
 		BTreeNode bTree = nodeMe(key);
@@ -126,3 +123,4 @@ public class BTreeManager
 		data.close();
 	}
 }
+
