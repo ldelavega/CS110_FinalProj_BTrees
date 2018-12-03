@@ -44,6 +44,14 @@ public class BTreeManager
 		}
 	}
 
+	/**
+	 * nodeMe method, called in the getIndex method of this class.
+	 * Creates a node to act as a medium between data.bt and this class
+	 * 
+	 * @param key
+	 * @return Representation of the selected BTree node
+	 * @throws IOException
+	 */
 	private BTreeNode nodeMe(long key) throws IOException
 	{
 		data.seek(8);
@@ -93,6 +101,14 @@ public class BTreeManager
 		// If [value] is omitted, insert an empty string
 	}
 
+	/**
+	 * getIndex method, called in the select method of the BTreeDB class.
+	 * Returns the index of the key within the structure of the BTree
+	 * 
+	 * @param key
+	 * @return
+	 * @throws IOException
+	 */
 	public long getIndex(long key) throws IOException
 	{
 		BTreeNode bTree = nodeMe(key);
