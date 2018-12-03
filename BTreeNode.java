@@ -1,6 +1,8 @@
 public class BTreeNode
 {
-  public static final int LENGTH = 3 * 5 - 1;
+  public static final int ORDER = 5;
+  public static final int LENGTH = 3 * ORDER - 1;
+  
   public static final int EMPTY = -1;
 
   private static final int START = 2;
