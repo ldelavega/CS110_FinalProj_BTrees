@@ -27,7 +27,7 @@ public class BTreeDB
     /**
      * Main method.
      * 
-     * @param args arguements from the console, meant to refer to data.bt and data.val
+     * @param args arguements from the console
      * @throws IOException 
      * @throws FileNotFoundException 
      */
@@ -55,7 +55,6 @@ public class BTreeDB
                 {
                     dataBT.close();
                     dataVAL.close();
-                    sc.close();
                     break;
                 }
 
@@ -97,8 +96,9 @@ public class BTreeDB
         }
     }
 
+
     /**
-     * Insert method. Inserts a key and String value pair into the BTree
+     * Insert method.
      * 
      * @param key
      * @param value
@@ -111,33 +111,33 @@ public class BTreeDB
     }
 
     /**
-     * Update method. Updates the String value of an existing key. Otherwise, returns an error message of the key doesn't exist
+     * Update method.
      * 
      * @param key
      * @param value
      * @throws IOException 
      */
-    public static void update(long key, String value)
+    public static void update(long key, String value) throws IOException
     {
-        System.out.printf(" --> in method update( long key, String value ), with key = %d and value = %s\n", key, value);
+
+        if (dataBT.update(key)){
+            dataVAL.update(value, key);
+            System.out.printf("%d updated.\n", key);
+        }
     }
 
-    /**
-     * Select method. Retrieves the index of the selected element, otherwise prints out an error message.
-     * 
-     * @param key key of the element being searched
-     * @throws IOException 
-    */
     public static void select(long key) throws IOException
     {
-        // calls the getIndex method from the BTreeManager class
-        long index = dataBT.getIndex(key);
+            long index = dataBT.getIndex(key);
 
-        if (index == -1) {
-            System.out.printf("ERROR: %d does not exist.\n", key);
-        } else {
-            String value = dataVAL.getValue(index);
-            System.out.printf("%d => %d\n", key, value);
-        }
+            if (index == -1)
+            {
+                System.out.printf("ERROR: %d does not exist.\n", key);
+            }
+            else
+            {
+                String value = dataVAL.getValue(index);
+                System.out.println(key + " => " + value);
+            }
     }
 }
