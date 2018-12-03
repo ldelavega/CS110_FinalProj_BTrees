@@ -9,6 +9,8 @@ import java.io.RandomAccessFile;
  */
 public class BTreeManager
 {
+	private static final String MODE = "rwd";
+
 	private RandomAccessFile data;
 	private long numRecords;
 	private long index;
@@ -18,7 +20,7 @@ public class BTreeManager
 		File tempFile = new File(fileName);
 		boolean exist = tempFile.exists();
 
-		data = new RandomAccessFile(fileName, "rwd");
+		data = new RandomAccessFile(fileName, MODE);
 
 		if(exist)
 		{
