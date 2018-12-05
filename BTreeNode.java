@@ -43,6 +43,7 @@ public class BTreeNode
   //insert the key and index
   public void insert(long key, long index)
   {
+    
     for(int i = START; i < LENGTH; i += INCREMENT)
     {
       long elem = node[i];
@@ -54,7 +55,7 @@ public class BTreeNode
         break;
       }
       
-      //swap if elem is bigger than key
+      //sorts the node if elem is greater than key
       if(elem > key)
       {
         long tempKey1 = node[i];
