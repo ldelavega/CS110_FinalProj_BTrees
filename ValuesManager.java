@@ -9,14 +9,14 @@ import java.io.RandomAccessFile;
  */
 public class ValuesManager
 {
-	private static final String MODE = "rwd";
-	private static final String UTF = "UTF8";
+	private static final String MODE = "rwd"; // Opens up file to reading and writing
+	private static final String UTF = "UTF8"; // Character encoding, using 8 blocks to represent a character
 
-	private static final int HEADER_SIZE = 8;
-	private static final int RECORD_SIZE = 256;
+	private static final int HEADER_SIZE = 8;	// Only 8 bytes for long integers
+	private static final int RECORD_SIZE = 256; // Up to 255 characters for values of Strings
 
-	private RandomAccessFile data;
-	private long numRecords;
+	private RandomAccessFile data; // refers to the file to be used for sotring kay-value pairs
+	private long numRecords; // Number of key-value pairs recorded within the file
 
 	/**
      * Constructor method.
