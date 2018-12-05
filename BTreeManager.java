@@ -117,7 +117,7 @@ public class BTreeManager
 		// If <key> already exists, print â€œERROR: [key] already exists."
 		if(bTree.getIndex(key) != bTree.EMPTY)
 		{
-			System.out.printf("ERROR: %d already exist.\n", key);
+			System.out.printf("ERROR: %d already exists.\n", key);
 		}
 		// Inserts a key associated to value, and then prints [key] inserted.
 		else
@@ -125,7 +125,7 @@ public class BTreeManager
 			bTree.insert(key, index);
 			writeNode(bTree, 0);
 
-			System.out.printf("%d inserted\n", key);
+			System.out.printf("%d inserted.\n", key);
 		}
 		// If [value] is omitted, insert an empty string
 	}
