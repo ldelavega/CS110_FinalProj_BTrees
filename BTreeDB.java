@@ -62,7 +62,21 @@ public class BTreeDB
                 long key = Long.valueOf(input[1]);
                 // third part of the input is the value
                 // unless the action is SELECT, in which case the value is EMPTY
-                String value = input.length > 2 ? input[2] : EMPTY;
+                String value = EMPTY;
+
+                if (input.length > 2){
+                    value = "";
+                    for (int i = 2; i < input.length; i++){
+                        if (i < input.length-1){
+                            value = value + input[i] + " ";
+                        }
+                        else {
+                            value = value + input[i];
+                        }
+                    }
+                }
+                else {
+                }
 
                 // switch cases for the action
                 switch (action)
