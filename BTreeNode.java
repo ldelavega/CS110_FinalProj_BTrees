@@ -9,45 +9,52 @@ public class BTreeNode
   private static final int INCREMENT = 3;
 
   private long[] node;
-
+  
   public BTreeNode(long[] bTree)
   {
     node = bTree;
   }
-
+  
+  //checks if the current node is occupied
   public boolean getFull()
   {
     return node[LENGTH - START] != EMPTY;
   }
-
+  
+  //get the node
   public long[] getNode()
   {
     return node;
   }
-
+  
+  //get index of the node
   public long getIndex(long key)
   {
     for(int i = START; i < LENGTH; i += INCREMENT)
     {
+      // if the key value is the same, returns the index which is i+1 in long[] node
       if(key == node[i])
         return node[i + 1];
     }
+    // else return EMPTY
     return EMPTY;
   }
-
+  
+  //insert the key and index
   public void insert(long key, long index)
   {
     for(int i = START; i < LENGTH; i += INCREMENT)
     {
       long elem = node[i];
-
+      //insert key and index if index is EMPTY
       if(node[i + 1] == EMPTY)
       {
         node[i] = key;
         node[i + 1] = index;
         break;
       }
-
+      
+      //swap if elem is bigger than key
       if(elem > key)
       {
         long tempKey1 = node[i];
