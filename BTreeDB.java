@@ -114,8 +114,8 @@ public class BTreeDB
     /**
      * Insert method.
      * 
-     * @param key
-     * @param value
+     * @param key key for the value
+     * @param value String to place into the Value Manager
      * @throws IOException 
      */
     public static void insert(long key, String value) throws IOException
@@ -127,8 +127,8 @@ public class BTreeDB
     /**
      * Update method.
      * 
-     * @param key
-     * @param value
+     * @param key key for the value to be updated
+     * @param value String to update in the Value Manager
      * @throws IOException 
      */
     public static void update(long key, String value) throws IOException
@@ -140,6 +140,12 @@ public class BTreeDB
         }
     }
 
+    /**
+     * Select method.
+     * 
+     * @param key key of the value to be selected
+     * @throws IOException 
+     */
     public static void select(long key) throws IOException
     {
             long index = dataBT.getIndex(key);

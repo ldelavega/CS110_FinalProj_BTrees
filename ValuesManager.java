@@ -2,6 +2,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+/**
+ * Class that handles the data.val file (Values of the B-Tree).
+ * 
+ * @author Jaymie Antonio, Luis IV de la Vega, Christian Limsui
+ */
 public class ValuesManager
 {
 	private static final String MODE = "rwd";
@@ -13,6 +18,12 @@ public class ValuesManager
 	private RandomAccessFile data;
 	private long numRecords;
 
+	/**
+     * Constructor method.
+     * 
+     * @param fileName file name given for the Values Manager
+     * @throws IOException
+     */
 	public ValuesManager(String fileName) throws IOException
 	{
 		File tempFile = new File(fileName);
@@ -28,7 +39,14 @@ public class ValuesManager
 		else
 			numRecords = 0;
 	}
-	
+
+	/**
+     * Return the value associated with the key
+     * 
+     * @param key key of the value
+     * @return value
+     * @throws IOException
+     */
 	public String getValue(long key) throws IOException
 	{
     	if (key >= numRecords)
@@ -45,6 +63,13 @@ public class ValuesManager
 		}
   	}
 
+  	/**
+     * Insert method.
+     * 
+     * @param value value to be inserted
+     * @return index of the value
+     * @throws IOException
+     */
 	public long insert(String value) throws IOException
 	{
 		int lengthByte = (byte) value.length();
@@ -57,9 +82,16 @@ public class ValuesManager
     	data.writeLong(numRecords);
 
     	return numRecords - 1;
+    }
 	
-        
-        public void update(String value,long key) throws IOException
+    /**
+     * Update method.
+     * 
+     * @param value value to be updated
+     * @param key ket of the value to be updated
+     * @throws IOException
+     */    
+	public void update(String value,long key) throws IOException
 	{   
         long updateRec = key - 1;
 		int lengthByte = (byte) value.length();
@@ -68,6 +100,12 @@ public class ValuesManager
 		data.writeBytes(value);
 	}
 
+	/**
+     * Close the Values Manager file
+     * 
+     * @return index
+     * @throws IOException 
+     */
 	public void close() throws IOException
   	{
   		data.seek(0);

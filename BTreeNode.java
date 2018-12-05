@@ -1,3 +1,8 @@
+/**
+ * Class that handles the nodes of the B-Tree node
+ * 
+ * @author Jaymie Antonio, Luis IV de la Vega, Christian Limsui
+ */
 public class BTreeNode
 {
   public static final int ORDER = 5;
@@ -15,19 +20,32 @@ public class BTreeNode
     node = bTree;
   }
   
-  //checks if the current node is occupied
+  /**
+   * Checks if the current node is occupied
+   * 
+   * @return if node is full or not
+   */
   public boolean getFull()
   {
     return node[LENGTH - START] != EMPTY;
   }
   
-  //get the node
+  /**
+   * Get the node
+   * 
+   * @return node array
+   */
   public long[] getNode()
   {
     return node;
   }
   
-  //get index of the node
+  /**
+   * Get index of the node
+   * 
+   * @param key key of the node to get
+   * @return contents of the node
+   */
   public long getIndex(long key)
   {
     for(int i = START; i < LENGTH; i += INCREMENT)
@@ -41,6 +59,12 @@ public class BTreeNode
   }
   
   //insert the key and index
+  /**
+   * Insert the key and index
+   * 
+   * @param key key of the node to insert value in
+   * @param index index of the node to insert value in
+   */
   public void insert(long key, long index)
   {
     

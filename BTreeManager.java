@@ -22,19 +22,29 @@ public class BTreeManager
 	private long numRecords;
 	private long index;
 
+	/**
+     * Constructor method.
+     * 
+     * @param fileName file name given for the B-Tree Manager
+     * @throws IOException
+     */
 	public BTreeManager(String fileName) throws IOException
 	{
+		// boolean for checking if there is already a B-Tree Manager.
 		File tempFile = new File(fileName);
 		boolean exist = tempFile.exists();
 
+		// Create RAF
 		data = new RandomAccessFile(fileName, MODE);
 
+		// if file exist, access the RAF
 		if(exist)
 		{
 			data.seek(0);
 			numRecords = data.readLong();
 			index = data.readLong();
 		}
+		// if not, give values the B-Tree Manager.
 		else
 		{
 			numRecords = 0;
@@ -51,6 +61,13 @@ public class BTreeManager
 		}
 	}
 
+	/**
+     * Return the current B-Tree Node
+     * 
+     * @param key key given to access the B-Tree
+     * @return B-Tree node.
+     * @throws IOException
+     */
 	private BTreeNode nodeMe(long key) throws IOException
 	{
 		data.seek(HEADER_SIZE);
@@ -67,6 +84,13 @@ public class BTreeManager
 		return new BTreeNode(node);
 	}
 
+	/**
+     * Writes in the B-Tree Node
+     * 
+     * @param bTree B-Tree to be written on
+     * @param x value to seek
+     * @throws IOException
+     */
 	private void writeNode(BTreeNode bTree, long x) throws IOException
 	{
 		long[] node = bTree.getNode();
@@ -79,6 +103,13 @@ public class BTreeManager
 		}
 	}
 
+	/**
+     * Insert method.
+     * 
+     * @param key key of the value
+     * @param value index of the value
+     * @throws IOException 
+     */
 	public void insert(long key, long index) throws IOException
 	{
 		BTreeNode bTree = nodeMe(key);
@@ -98,7 +129,14 @@ public class BTreeManager
 		}
 		// If [value] is omitted, insert an empty string
 	}
-        
+    
+    /**
+     * Update method.
+     * 
+     * @param key key of the value
+     * @return if key exist or not
+     * @throws IOException 
+     */
     public boolean update(long key) throws IOException
 	{
 		BTreeNode bTree = nodeMe(key);
@@ -117,6 +155,13 @@ public class BTreeManager
         return canSwap;
 	}
 
+	/**
+     * Method to return the index
+     * 
+     * @param key key of the value
+     * @return index
+     * @throws IOException 
+     */
 	public long getIndex(long key) throws IOException
 	{
 		BTreeNode bTree = nodeMe(key);
@@ -124,6 +169,12 @@ public class BTreeManager
 		return bTree.getIndex(key);
 	}
 
+	/**
+     * Close the B-Tree Manager file
+     * 
+     * @return index
+     * @throws IOException 
+     */
 	public void close() throws IOException
 	{
 		data.seek(0);
