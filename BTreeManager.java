@@ -9,6 +9,15 @@ import java.io.RandomAccessFile;
  */
 public class BTreeManager
 {
+	private static final String MODE = "rwd";
+
+	private static final int HEADER_SIZE = 8;
+	private static final int RECORD_SIZE = 256;
+	private static final int POINTERS = 14;
+	private static final int ROOT_INDEX = 8;
+	private static final int FIRST_NODE = 16;
+	private static final int NULL = -1;
+
 	private RandomAccessFile data;
 	private long numRecords;
 	private long index;
@@ -18,7 +27,7 @@ public class BTreeManager
 		File tempFile = new File(fileName);
 		boolean exist = tempFile.exists();
 
-		data = new RandomAccessFile(fileName, "rwd");
+		data = new RandomAccessFile(fileName, MODE);
 
 		if(exist)
 		{
@@ -37,14 +46,14 @@ public class BTreeManager
 
 			for(int i = 0; i < size; i++)
 			{
-				data.writeLong(-1);
+				data.writeLong(NULL);
 			}
 		}
 	}
 
 	private BTreeNode nodeMe(long key) throws IOException
 	{
-		data.seek(8);
+		data.seek(HEADER_SIZE);
 		long x = data.readLong();
 
 		int size = BTreeNode.LENGTH;
@@ -61,10 +70,10 @@ public class BTreeManager
 	private void writeNode(BTreeNode bTree, long x) throws IOException
 	{
 		long[] node = bTree.getNode();
-		long seeker = 16 + x * 14 * 8;
+		long seeker = FIRST_NODE + x * POINTERS * ROOT_INDEX;
 		data.seek(seeker);
 
-		for(int i = 0; i < 14; i++)
+		for(int i = 0; i < POINTERS; i++)
 		{
 			data.writeLong(node[i]);
 		}
@@ -90,10 +99,10 @@ public class BTreeManager
 		// If [value] is omitted, insert an empty string
 	}
         
-        public boolean update(long key) throws IOException
+    public boolean update(long key) throws IOException
 	{
 		BTreeNode bTree = nodeMe(key);
-                boolean canSwap = false;
+        boolean canSwap = false;
                 
 
 		if(bTree.getIndex(key) == bTree.EMPTY)
@@ -102,10 +111,10 @@ public class BTreeManager
 		}
 		else
 		{
-                        canSwap = true;
+        	canSwap = true;
 		}
 		
-                return canSwap;
+        return canSwap;
 	}
 
 	public long getIndex(long key) throws IOException

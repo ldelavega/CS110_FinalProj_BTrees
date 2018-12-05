@@ -4,6 +4,12 @@ import java.io.RandomAccessFile;
 
 public class ValuesManager
 {
+	private static final String MODE = "rwd";
+	private static final String UTF = "UTF8";
+
+	private static final int HEADER_SIZE = 8;
+	private static final int RECORD_SIZE = 256;
+
 	private RandomAccessFile data;
 	private long numRecords;
 
@@ -12,7 +18,7 @@ public class ValuesManager
 		File tempFile = new File(fileName);
 		boolean exist = tempFile.exists();
 
-		data = new RandomAccessFile(fileName, "rwd");
+		data = new RandomAccessFile(fileName, MODE);
 
 		if (exist)
 		{
@@ -31,18 +37,18 @@ public class ValuesManager
     	}
     	else
     	{
-    		data.seek(key * 256 + 8);
+    		data.seek(key * RECORD_SIZE + HEADER_SIZE);
     		int x = data.readByte();
     		byte[] valueByte = new byte[x];
     		data.read(valueByte);
-    		return new String(valueByte, "UTF8");
+    		return new String(valueByte, UTF);
 		}
   	}
 
 	public long insert(String value) throws IOException
 	{
 		int lengthByte = (byte) value.length();
-		data.seek(numRecords * 256 + 8);
+		data.seek(numRecords * RECORD_SIZE + HEADER_SIZE);
 		data.writeByte(lengthByte);
 		data.writeBytes(value);
 
@@ -51,13 +57,13 @@ public class ValuesManager
     	data.writeLong(numRecords);
 
     	return numRecords - 1;
-	}
+	
         
         public void update(String value,long key) throws IOException
 	{   
-                long updateRec = key - 1;
+        long updateRec = key - 1;
 		int lengthByte = (byte) value.length();
-		data.seek(updateRec * 256 + 8);
+		data.seek(updateRec * RECORD_SIZE + HEADER_SIZE);
 		data.writeByte(lengthByte);
 		data.writeBytes(value);
 	}
