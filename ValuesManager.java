@@ -93,9 +93,8 @@ public class ValuesManager
      */    
 	public void update(String value,long key) throws IOException
 	{   
-        long updateRec = key - 1;
 		int lengthByte = (byte) value.length();
-		data.seek(updateRec * RECORD_SIZE + HEADER_SIZE);
+		data.seek(key * RECORD_SIZE + HEADER_SIZE);
 		data.writeByte(lengthByte);
 		data.writeBytes(value);
 	}
