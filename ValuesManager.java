@@ -75,7 +75,7 @@ public class ValuesManager
 		int lengthByte = (byte) value.length();
 		data.seek(numRecords * RECORD_SIZE + HEADER_SIZE);
 		data.writeByte(lengthByte);
-		data.writeBytes(value);
+		data.write(value.getBytes(UTF));
 
 		numRecords += 1;
     	data.seek(0);
@@ -88,15 +88,16 @@ public class ValuesManager
      * Update method.
      * 
      * @param value value to be updated
-     * @param key ket of the value to be updated
+     * @param index index of the value to be updated
      * @throws IOException
      */    
-	public void update(String value,long key) throws IOException
+	public void update(String value,long index) throws IOException
 	{   
 		int lengthByte = (byte) value.length();
-		data.seek(key * RECORD_SIZE + HEADER_SIZE);
-		data.writeByte(lengthByte);
-		data.writeBytes(value);
+        data.seek(index * RECORD_SIZE + HEADER_SIZE);
+    
+        data.writeByte(lengthByte);
+        data.write(value.getBytes(UTF));
 	}
 
 	/**

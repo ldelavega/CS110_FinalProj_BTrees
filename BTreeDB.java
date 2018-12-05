@@ -133,9 +133,13 @@ public class BTreeDB
      */
     public static void update(long key, String value) throws IOException
     {
+        long index = dataBT.getIndex(key);
 
-        if (dataBT.update(key)){
-            dataVAL.update(value, key);
+        if(index == -1)
+            System.out.printf("ERROR: %d does not exist.\n", key);
+        else
+        {
+            dataVAL.update(value, index);
             System.out.printf("%d updated.\n", key);
         }
     }
@@ -151,13 +155,11 @@ public class BTreeDB
             long index = dataBT.getIndex(key);
 
             if (index == -1)
-            {
                 System.out.printf("ERROR: %d does not exist.\n", key);
-            }
             else
             {
                 String value = dataVAL.getValue(index);
-                System.out.println(key + " => " + value);
+                System.out.printf("%d => %s\n", key, value);
             }
     }
 }
